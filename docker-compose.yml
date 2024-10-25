@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: emit_api
+    build:
+      context: ./
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "11000:9000"
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=mydatabase' #Dado genéricos, não o use em produção.
+      - 'MYSQL_PASSWORD=secret' #Dado genéricos, não o use em produção.
+      - 'MYSQL_ROOT_PASSWORD=verysecret' #Dado genéricos, não o use em produção.
+      - 'MYSQL_USER=myuser' #Dado genéricos, não o use em produção.
+    ports:
+      - '20000:3306'
+  solr:
+    image: solr
+    ports:
+     - "8983:8983"
+    volumes:
+      - ./src/main/resources/db/solr:/var/solr
+    command:
+      - solr-precreate
+      - gettingstarted
