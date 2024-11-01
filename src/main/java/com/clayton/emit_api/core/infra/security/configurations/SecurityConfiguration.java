@@ -23,6 +23,14 @@ public class SecurityConfiguration {
     @Autowired
     JwtSecurityFilter jwtSecurityFilter;
     
+    /**
+     * Configuração do sistema para validação de permissões dos usuários, e liberação de rotas do sistema.
+     * @param httpSecurity {@link HttpSecurity}
+     * @return {@link SecurityFilterChain}
+     * @throws Exception
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -36,11 +44,25 @@ public class SecurityConfiguration {
                 .build();
     }
 
+    /**
+     * Configuração do sistema para alocação do {@link AuthenticationManager}
+     * @param authConfiguration {@link AuthenticationConfiguration}
+     * @return {@link AuthenticationManager}
+     * @throws Exception
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     @Bean
     public AuthenticationManager authManager(AuthenticationConfiguration authConfiguration) throws Exception {
         return authConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * Configuração do encoder de senhas padrão.
+     * @return {@link PasswordEncoder}
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     @Bean
     public PasswordEncoder passEncoder() {
         return new BCryptPasswordEncoder();

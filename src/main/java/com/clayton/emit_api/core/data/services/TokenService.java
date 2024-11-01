@@ -19,6 +19,13 @@ public class TokenService {
     @Value("${api.security.secret.key}")
     private String secretKey;
 
+    /**
+     * Gera um token para o usuário consegui utilizar as funcionalidades da API.
+     * @param user {@link UserEntity}
+     * @return {@link String}
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     public String generateTokenJWT(UserEntity user) {
         try {
             Instant expirationDate = LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.of("-03:00"));
@@ -34,6 +41,13 @@ public class TokenService {
         }
     }
 
+    /**
+     * Valida se o token enviado e valido para acessar as funcionalidades da API.
+     * @param tokenJWT {@link String}
+     * @return {@link String}
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     public String validateTokenJWT(String tokenJWT) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
