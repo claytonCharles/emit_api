@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.clayton.emit_api.core.data.dtos.ErrorValidateDTO;
 import com.clayton.emit_api.core.data.dtos.ResponseExceptionsDTO;
+import com.clayton.emit_api.core.data.dtos.SimpleResponseDTO;
 
 @RestControllerAdvice
 public class ExceptionHandlerController {
@@ -35,16 +36,16 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
-    public ResponseEntity<ResponseExceptionsDTO> threatInvalidDataAccessApiUsageException(
+    public ResponseEntity<SimpleResponseDTO> threatInvalidDataAccessApiUsageException(
         InvalidDataAccessApiUsageException exception
     ) {
-        ResponseExceptionsDTO responseException = new ResponseExceptionsDTO(exception.getMessage(), null);
+        SimpleResponseDTO responseException = new SimpleResponseDTO(exception.getMessage(), false);
         return ResponseEntity.badRequest().body(responseException);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseExceptionsDTO> threatGeneralException(Exception exception) {
-        ResponseExceptionsDTO responseException = new ResponseExceptionsDTO(exception.getMessage(), null);
+    public ResponseEntity<SimpleResponseDTO> threatGeneralException(Exception exception) {
+        SimpleResponseDTO responseException = new SimpleResponseDTO(exception.getMessage(), false);
         return ResponseEntity.badRequest().body(responseException);
     }
 }

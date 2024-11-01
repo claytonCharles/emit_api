@@ -26,6 +26,11 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Valida o token enviado para a autenticação do usuário na requisição enviada.
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     @Override
     protected void doFilterInternal(
         HttpServletRequest request, 
@@ -36,17 +41,26 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         if (tokenJWT != null) {
             String userMail = tokenService.validateTokenJWT(tokenJWT);
             UserDetails user = userRepository.findByMail(userMail);
-            UsernamePasswordAuthenticationToken authUser = new UsernamePasswordAuthenticationToken(
-                user, 
-                null,
-                user.getAuthorities()
-            );
-            SecurityContextHolder.getContext().setAuthentication(authUser);
+            if (user != null) {
+                UsernamePasswordAuthenticationToken authUser = new UsernamePasswordAuthenticationToken(
+                    user, 
+                    null,
+                    user.getAuthorities()
+                );
+                SecurityContextHolder.getContext().setAuthentication(authUser);
+            }
         }
 
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Resgata o token JWT, enviado nos headers da requisição.
+     * @param request {@link HttpServletRequest}
+     * @return {@link String}
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     private String recoverTokenJWT(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         if (authorization == null) return null;

@@ -14,6 +14,11 @@ public class AuthService implements UserDetailsService {
     @Autowired
     UserRepository repository;
 
+    /**
+     * Serviço utilizado pelo Spring Security para a autenticação de usuários na aplicação.
+     * @author Clayton Charles
+     * @version 0.1.0
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByMail(username);

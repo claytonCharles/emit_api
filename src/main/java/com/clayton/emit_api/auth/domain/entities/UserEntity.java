@@ -25,6 +25,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidade para identificação e tratamento de dados via JPA da tabela de usuários do sistema.
+ * @author Clayton Charles
+ * @version 0.1.0
+ */
 @Table(name = "tb_users")
 @Entity(name = "users")
 @AllArgsConstructor
