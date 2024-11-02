@@ -25,11 +25,12 @@ public class CpuService {
      * @param filters {@link FiltersCpuDTO}
      * @return {@link ResultListHardwareDTO}
      * @author Clayton Charles
-     * @version 0.1.0
+     * @version 0.2.0
      */
     public ResultListHardwareDTO getListCpu(FiltersCpuDTO filters) {
         Integer startRow = (filters.getPage() - 1) * filters.getItensPerPage();
-        double totalPages = Math.ceil(cpuRepository.countTotalCpus(filters.getItensPerPage(), filters.isActive()));
+        double totalItems = cpuRepository.countTotalCpus(filters.isActive());
+        double totalPages = Math.ceil(totalItems / (double)filters.getItensPerPage());
         List<CpuProjection> listCpuProjections = cpuRepository.findProjectedAll(
             startRow,
             filters.getItensPerPage(),
@@ -37,7 +38,12 @@ public class CpuService {
             filters.getBrand(),
             filters.isActive()
         );
-        ResultListHardwareDTO listCpu = new ResultListHardwareDTO(listCpuProjections, filters, (long)totalPages);
+        ResultListHardwareDTO listCpu = new ResultListHardwareDTO(
+            listCpuProjections, 
+            filters, 
+            (long)totalPages,
+            (long)totalItems
+        );
         return listCpu;
     }
 

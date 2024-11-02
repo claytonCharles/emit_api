@@ -36,13 +36,10 @@ public interface CpuRepository extends JpaRepository<CpuEntity, Long> {
      * @param active {@link Boolean}
      * @return {@link Double}
      * @author Clayton Charles
-     * @version 0.1.0
+     * @version 0.2.0
      */
-    @Query(value = "SELECT COUNT(*) / :itensPerPage FROM tb_cpus c WHERE c.active = :active", nativeQuery = true)
-    double countTotalCpus(
-        @Param("itensPerPage") double itensPerPage,
-        @Param("active") boolean active
-    );
+    @Query(value = "SELECT COUNT(*) FROM tb_cpus c WHERE c.active = :active", nativeQuery = true)
+    double countTotalCpus(@Param("active") boolean active);
 
     /**
      * Resgata todas as CPUs do sistema, conforme os filtros desejados, assim como limitando as informações, 
