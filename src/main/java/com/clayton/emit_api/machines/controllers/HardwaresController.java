@@ -15,8 +15,12 @@ import com.clayton.emit_api.core.data.dtos.SimpleResponseDTO;
 import com.clayton.emit_api.machines.data.dtos.FiltersCpuDTO;
 import com.clayton.emit_api.machines.data.dtos.ResultListHardwareDTO;
 import com.clayton.emit_api.machines.data.dtos.SaveCpuDTO;
+import com.clayton.emit_api.machines.data.dtos.SaveMotherboardDTO;
+import com.clayton.emit_api.machines.data.filters.MotherboardFiltersDTO;
 import com.clayton.emit_api.machines.data.services.CpuService;
+import com.clayton.emit_api.machines.data.services.MotherboardService;
 import com.clayton.emit_api.machines.domain.projections.CpuProjection;
+import com.clayton.emit_api.machines.domain.projections.MotherboardProjection;
 
 import jakarta.validation.Valid;
 
@@ -26,6 +30,9 @@ public class HardwaresController {
     
     @Autowired
     private CpuService cpuService;
+
+    @Autowired
+    private MotherboardService motherboardService;
 
     @GetMapping("list/cpu")
     public ResponseEntity<ResultListHardwareDTO> getListCpu(@RequestBody @Valid FiltersCpuDTO filters) {
@@ -51,5 +58,35 @@ public class HardwaresController {
         UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         this.cpuService.deactivateCpu(id, user);
         return ResponseEntity.ok(new SimpleResponseDTO("Cpu deactivate with success!", true));
+    }
+
+    @GetMapping("list/motherboard")
+    public ResponseEntity<ResultListHardwareDTO> getAllMotherboards(
+        @RequestBody @Valid MotherboardFiltersDTO filters
+    ) {
+        ResultListHardwareDTO listMotherboard = this.motherboardService.recoveMotherboards(filters);
+        return ResponseEntity.ok(listMotherboard);
+    }
+
+    @GetMapping("info/motherboard")
+    public ResponseEntity<MotherboardProjection> recoveMotherboardInfo(@RequestParam Long id) {
+        MotherboardProjection motherboard = this.motherboardService.recoveMotherboardInfo(id);
+        return ResponseEntity.ok(motherboard);
+    } 
+
+    @PostMapping("save/motherboard")
+    public ResponseEntity<MotherboardProjection> saveMotherboard(
+        @RequestBody @Valid SaveMotherboardDTO motherboardDTO
+    ) throws Exception {
+        UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MotherboardProjection motherboard = this.motherboardService.saveMotherboard(motherboardDTO, user);
+        return ResponseEntity.ok(motherboard);
+    }
+
+    @GetMapping("deactive/motherboard")
+    public ResponseEntity<SimpleResponseDTO> deactivateMotherboard(@RequestParam Long id) throws Exception {
+        UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        this.motherboardService.deactivateMotherboard(id, user);
+        return ResponseEntity.ok(new SimpleResponseDTO("Motherboard deactivate with success!", true));
     }
 }
