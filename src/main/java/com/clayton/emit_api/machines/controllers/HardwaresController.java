@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.clayton.emit_api.auth.domain.entities.UserEntity;
 import com.clayton.emit_api.core.data.dtos.SimpleResponseDTO;
-import com.clayton.emit_api.machines.data.dtos.FiltersCpuDTO;
 import com.clayton.emit_api.machines.data.dtos.ResultListHardwareDTO;
 import com.clayton.emit_api.machines.data.dtos.SaveCpuDTO;
 import com.clayton.emit_api.machines.data.dtos.SaveMotherboardDTO;
+import com.clayton.emit_api.machines.data.filters.CpuFiltersDTO;
 import com.clayton.emit_api.machines.data.filters.MotherboardFiltersDTO;
 import com.clayton.emit_api.machines.data.services.CpuService;
 import com.clayton.emit_api.machines.data.services.MotherboardService;
@@ -35,7 +35,7 @@ public class HardwaresController {
     private MotherboardService motherboardService;
 
     @GetMapping("list/cpu")
-    public ResponseEntity<ResultListHardwareDTO> getListCpu(@RequestBody @Valid FiltersCpuDTO filters) {
+    public ResponseEntity<ResultListHardwareDTO> getListCpu(@RequestBody @Valid CpuFiltersDTO filters) {
         ResultListHardwareDTO lstCpu = this.cpuService.getListCpu(filters);
         return ResponseEntity.ok(lstCpu);
     }

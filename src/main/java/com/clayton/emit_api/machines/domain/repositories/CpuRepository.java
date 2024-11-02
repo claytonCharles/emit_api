@@ -17,9 +17,9 @@ public interface CpuRepository extends JpaRepository<CpuEntity, Long> {
      * @param name {@link String}
      * @return {@link CpuEntity}
      * @author Clayton Charles
-     * @version 0.1.0
+     * @version 1.0.0
      */
-    Optional<CpuEntity> findByNameAndActiveTrue(String name);
+    Optional<CpuEntity> findByModelAndActiveTrue(String name);
 
     /**
      * Query simples para verificar se existe uma CPU com o id desejado ativo no sistema.
@@ -46,12 +46,12 @@ public interface CpuRepository extends JpaRepository<CpuEntity, Long> {
      * para trazer apenas oque deve/pode ser exibido.
      * @param startRow
      * @param itensPerPage
-     * @param cpuName
+     * @param model
      * @param brand
      * @param active
      * @return Lista de {@link CpuProjection}
      * @author Clayton Charles
-     * @version 0.1.0
+     * @version 1.0.0
      */
     @Query(
         value = "SELECT " +
@@ -60,10 +60,10 @@ public interface CpuRepository extends JpaRepository<CpuEntity, Long> {
                     "u.name AS user_name, " + 
                     "r.name as role_user " +
                 "FROM tb_cpus c " +
-                    "JOIN tb_users u ON c.register_user_id = u.id " +
+                    "JOIN tb_users u ON c.user_id = u.id " +
                     "JOIN tb_users_roles r ON u.role_id = r.id " +
                 "WHERE c.active = :active " +
-                "AND (c.name LIKE %:cpuName% OR :cpuName IS NULL) " +
+                "AND (c.model LIKE %:model% OR :model IS NULL) " +
                 "AND (c.brand LIKE %:brand% OR :brand IS NULL) " +
                 "LIMIT :startRow, :itensPerPage",
         nativeQuery = true
@@ -71,7 +71,7 @@ public interface CpuRepository extends JpaRepository<CpuEntity, Long> {
     List<CpuProjection> findProjectedAll(
         @Param("startRow") Integer startRow, 
         @Param("itensPerPage")Integer itensPerPage,
-        @Param("cpuName") String cpuName,
+        @Param("model") String model,
         @Param("brand") String brand,
         @Param("active") boolean active
     );
@@ -90,7 +90,7 @@ public interface CpuRepository extends JpaRepository<CpuEntity, Long> {
                     "u.name AS user_name, " + 
                     "r.name as role_user " +
                 "FROM tb_cpus c " +
-                    "JOIN tb_users u ON c.register_user_id = u.id " +
+                    "JOIN tb_users u ON c.user_id = u.id " +
                     "JOIN tb_users_roles r ON u.role_id = r.id " +
                     "WHERE c.active = true AND c.id = ?1",
         nativeQuery = true

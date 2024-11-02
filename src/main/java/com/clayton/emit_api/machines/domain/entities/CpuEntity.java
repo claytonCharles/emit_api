@@ -22,7 +22,7 @@ import lombok.Setter;
 /**
  * Entidade para identificação e tratamento de dados via JPA da tabela de CPUs do sistema.
  * @author Clayton Charles
- * @version 0.1.0
+ * @version 1.0.0
  */
 @Table(name = "tb_cpus")
 @Entity
@@ -37,110 +37,63 @@ public class CpuEntity {
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "register_user_id", referencedColumnName = "id")
-    private UserEntity user_id;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity user;
 
     private String brand;
-    private String name;
-    private Integer performance_core;
-    private Integer efficient_core;
-    private Integer total_core;
-    private Integer total_threads;
-    private String frequency_performance_base;
-    private String frequency_performance_max;
-    private String frequency_efficient_base;
-    private String frequency_efficient_max;
-    private String cache;
+    private String model;
+    private String socket;
+    private Integer cores; 
+    private Integer threads;
+    private double base_clock_speed;
+    private double max_clock_speed;
+    private String cache_l1;
     private String cache_l2;
-    private String psu_base;
-    private String psu_max;
-    private String photo;
-    private boolean active;
+    private String cache_l3;
+    private Integer tdp_wattage_base;
+    private Integer tdp_wattage_max;
+    private Boolean integrated_graphics;
+    private String integrated_graphics_model; 
+    private String photo_url;
+    private Boolean active;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime register_date;
 
-    public CpuEntity(String brand, String name) {
-        this.brand = brand;
-        this.name = name;
-        this.active = true;
-        this.register_date = LocalDateTime.now();
-    }
-
     public CpuEntity(
-        UserEntity user_id,
+        UserEntity user,
         String brand,
-        String name,
-        Integer performance_core,
-        Integer efficient_core,
-        Integer total_core,
-        Integer total_threads,
-        String frequency_performance_base,
-        String frequency_performance_max,
-        String frequency_efficient_base,
-        String frequency_efficient_max,
-        String cache,
+        String model,
+        String socket,
+        Integer cores, 
+        Integer threads,
+        double base_clock_speed,
+        double max_clock_speed,
+        String cache_l1,
         String cache_l2,
-        String psu_base,
-        String psu_max,
-        String photo
+        String cache_l3,
+        Integer tdp_wattage_base,
+        Integer tdp_wattage_max,
+        Boolean integrated_graphics,
+        String integrated_graphics_model, 
+        String photo_url
     ) {
-        this.user_id = user_id;
+        this.user = user;
         this.brand = brand;
-        this.name = name;
-        this.performance_core = performance_core;
-        this.efficient_core = efficient_core;
-        this.total_core = total_core;
-        this.total_threads = total_threads;
-        this.frequency_performance_base = frequency_performance_base;
-        this.frequency_performance_max = frequency_performance_max;
-        this.frequency_efficient_base = frequency_efficient_base;
-        this.frequency_efficient_max = frequency_efficient_max;
-        this.cache = cache;
+        this.model = model;
+        this.socket = socket;
+        this.cores = cores;
+        this.threads = threads;
+        this.base_clock_speed = base_clock_speed;
+        this.max_clock_speed = max_clock_speed;
+        this.cache_l1 = cache_l1;
         this.cache_l2 = cache_l2;
-        this.psu_base = psu_base;
-        this.psu_max = psu_max;
-        this.photo = photo;
-        this.active = true;
-        this.register_date = LocalDateTime.now();
-    }
-
-    public CpuEntity(
-        Long id,
-        UserEntity user_id,
-        String brand,
-        String name,
-        Integer performance_core,
-        Integer efficient_core,
-        Integer total_core,
-        Integer total_threads,
-        String frequency_performance_base,
-        String frequency_performance_max,
-        String frequency_efficient_base,
-        String frequency_efficient_max,
-        String cache,
-        String cache_l2,
-        String psu_base,
-        String psu_max,
-        String photo
-    ) {
-        this.id = id;
-        this.user_id = user_id;
-        this.brand = brand;
-        this.name = name;
-        this.performance_core = performance_core;
-        this.efficient_core = efficient_core;
-        this.total_core = total_core;
-        this.total_threads = total_threads;
-        this.frequency_performance_base = frequency_performance_base;
-        this.frequency_performance_max = frequency_performance_max;
-        this.frequency_efficient_base = frequency_efficient_base;
-        this.frequency_efficient_max = frequency_efficient_max;
-        this.cache = cache;
-        this.cache_l2 = cache_l2;
-        this.psu_base = psu_base;
-        this.psu_max = psu_max;
-        this.photo = photo;
+        this.cache_l3 = cache_l3;
+        this.tdp_wattage_base = tdp_wattage_base;
+        this.tdp_wattage_max = tdp_wattage_max;
+        this.integrated_graphics = integrated_graphics;
+        this.integrated_graphics_model = integrated_graphics_model;
+        this.photo_url = photo_url;
         this.active = true;
         this.register_date = LocalDateTime.now();
     }
