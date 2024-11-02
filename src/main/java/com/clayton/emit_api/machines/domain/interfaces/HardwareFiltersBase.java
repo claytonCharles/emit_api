@@ -5,11 +5,11 @@ import jakarta.validation.constraints.NotNull;
 /**
  * Interface para implementações de filtros dos hardwares, servindo como modelo base e obrigatório.
  * @author Clayton Charles
- * @version 0.1.0
+ * @version 1.0.0
  */
 public interface HardwareFiltersBase {
     Long getId();
-    String getName();
+    String getModel();
     String getBrand();
     boolean isActive();
     @NotNull(message = "page can't be empty")

@@ -1,4 +1,4 @@
-package com.clayton.emit_api.machines.data.dtos;
+package com.clayton.emit_api.machines.data.filters;
 
 import com.clayton.emit_api.machines.domain.interfaces.HardwareFiltersBase;
 
@@ -8,13 +8,13 @@ import lombok.Setter;
 /**
  * Implementação dos filtros para a CPU.
  * @author Clayton Charles
- * @version 0.1.0
+ * @version 1.0.0
  */
 @Getter
 @Setter
-public class FiltersCpuDTO implements HardwareFiltersBase {
+public class CpuFiltersDTO implements HardwareFiltersBase {
     private Long id;
-    private String name;
+    private String model;
     private String brand;
     private boolean active = true;
     private Integer page;

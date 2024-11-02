@@ -1,29 +1,33 @@
 package com.clayton.emit_api.machines.data.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 /**
  * DTO responsável para a validação e dos dados na requisição para cadastro/atualização de CPUs.
  * @author Clayton Charles
- * @version 0.1.0
+ * @version 1.0.0
  */
 public record SaveCpuDTO(
     Long id,
-    @NotEmpty(message = "Brand can't be empty!")
+    @NotEmpty(message = "Can't be empty!")
     String brand,
-    @NotEmpty(message = "Name can't be empty!")
-    String name,
-    int performance_core,
-    int efficient_core,
-    int total_core,
-    int total_threads,
-    String frequency_performance_base,
-    String frequency_performance_max,
-    String frequency_efficient_base,
-    String frequency_efficient_max,
-    String cache,
+    @NotEmpty(message = "Can't be empty!")
+    String model,
+    @NotEmpty(message = "Can't be empty!")
+    String socket,
+    Integer cores, 
+    Integer threads,
+    double base_clock_speed,
+    double max_clock_speed,
+    String cache_l1,
     String cache_l2,
-    String psu_base,
-    String psu_max,
-    String photo
+    String cache_l3,
+    @NotNull(message = "Can't be empty!")
+    Integer tdp_wattage_base,
+    Integer tdp_wattage_max,
+    @NotNull(message = "Can't be empty!")
+    Boolean integrated_graphics,
+    String integrated_graphics_model, 
+    String photo_url
 ) {
 }

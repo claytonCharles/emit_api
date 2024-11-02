@@ -5,26 +5,26 @@ import java.time.LocalDateTime;
 /**
  * Projection para o tratar dados da CPU, evitando exposição de dados sensíveis.
  * @author Clayton Charles
- * @version 0.1.0
+ * @version 1.0.0
  */
 public interface CpuProjection {
     Long getid();
     String getbrand();
-    String getname();
-    Integer getperformance_core();
-    Integer getefficient_core();
-    Integer gettotal_core();
-    Integer gettotal_threads();
-    String getfrequency_performance_base();
-    String getfrequency_performance_max();
-    String getfrequency_efficient_base();
-    String getfrequency_efficient_max();
-    String getcache();
+    String getmodel();
+    String getsocket();
+    Integer getcores();
+    Integer getthreads();
+    double getbase_clock_speed();
+    double getmax_clock_speed();
+    String getcache_l1();
     String getcache_l2();
-    String getpsu_base();
-    String getpsu_max();
-    String getphoto();
-    boolean getactive();
+    String getcache_l3();
+    Integer gettdp_wattage_base();
+    Integer gettdp_wattage_max();
+    Boolean getintegrated_graphics();
+    String getintegrated_graphics_model();
+    String getphoto_url();
+    Boolean getactive();
     String getuser_id();
     String getuser_name();
     String getrole_user();
